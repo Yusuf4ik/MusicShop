@@ -20,7 +20,8 @@ public class MusicAdapter extends ArrayAdapter<Order> {
     Context context;
     Button button;
     ImageView tv_image;
-    TextView tv_title, tv_clientName, tv_price;
+    TextView tv_title, tv_clientName, tv_price, tv_quantity;
+    String goodPrice;
 
 
     int resource;
@@ -32,19 +33,26 @@ public class MusicAdapter extends ArrayAdapter<Order> {
 
     }
 
+    public String getTv_price() {
+        return String.valueOf(goodPrice);
+    }
+
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String goodTitle = getItem(position).getGoodsName();
         String clientName = getItem(position).getUserName();
-        String goodPrice = String.valueOf(getItem(position).getPrice());
+         goodPrice = String.valueOf(getItem(position).getPrice());
+        String goodQuantity = String.valueOf(getItem(position).getQuantity());
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(R.layout.list_item, parent, false);//list_item.xml
         tv_image = convertView.findViewById(R.id.goodImage);
         tv_title = convertView.findViewById(R.id.goodTitle);
         tv_clientName = convertView.findViewById(R.id.clientName);
         tv_price = convertView.findViewById(R.id.goodPrice);
+        tv_quantity = convertView.findViewById(R.id.goodQuantity);
         Button button = convertView.findViewById(R.id.deleteButton);
-        tv_title.setText(goodTitle);
-        tv_price.setText(goodPrice);
+        tv_title.setText("Name: "+ goodTitle);
+        tv_price.setText("Price: "+goodPrice);
+        tv_quantity.setText("Quantity: " + goodQuantity);
         localDB delete = new localDB();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
